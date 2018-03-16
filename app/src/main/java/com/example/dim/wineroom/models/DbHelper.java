@@ -1,4 +1,4 @@
-package com.example.dim.wineroom;
+package com.example.dim.wineroom.models;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -14,7 +14,6 @@ import com.example.dim.wineroom.entities.User;
 import com.example.dim.wineroom.entities.Wine;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class DbHelper extends SQLiteOpenHelper {
 

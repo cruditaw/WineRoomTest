@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_maCave"
+            android:icon="@drawable/ic_ma_cave"
+            android:title="Ma cave" />
+        <item
+            android:id="@+id/nav_mesVignerons"
+            android:icon="@drawable/ic_mes_vignerons"
+            android:title="Mes vignerons" />
+    </group>
+
+    <item android:title="Rechercher">
+        <menu>
+            <item
+                android:id="@+id/nav_search_vin"
+                android:icon="@drawable/ic_search_vin"
+                android:title="Vins" />
+            <item
+                android:id="@+id/nav_search_vigneron"
+                android:icon="@drawable/ic_search_vigneron"
+                android:title="Vignerons" />
+        </menu>
+    </item>
+
+</menu>
