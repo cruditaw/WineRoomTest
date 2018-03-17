@@ -1,22 +1,49 @@
 package com.example.dim.wineroom.controllers;
 
+import android.util.Log;
+
+import com.example.dim.wineroom.entities.Grape;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * Created by cdsm on 3/16/18.
+ * todo: unitTest
  */
+public class ApplicationDataController implements Serializable {
 
-public abstract class ApplicationDataController<T> {
+    private final String ARG_APPDATA="DataCtrlr";
 
-    List<T> dataList;
-    T selection;
+    List<Grape> dataList;
+    Grape selGrape;
+    Grape selClone;
 
-    public ApplicationDataController(List<T> dataList) {
-        this.dataList = dataList;
+    public ApplicationDataController(List<Grape> dataList) {
+        this.dataList = new ArrayList<>(dataList);
 
         if (!dataList.isEmpty()) {
-            selection = dataList.get(0);
+            selGrape = this.dataList.get(0);
+            selGrapeToSelClone();
+        }
+    }
+
+    private void selGrapeToSelClone() {
+        try {
+            selClone = selGrape.clone();
+        } catch (CloneNotSupportedException e) {
+            Log.i(ARG_APPDATA, "----- CloneNotSupportedException");
+            e.printStackTrace();
+        }
+    }
+
+    private void selCloneToSelGrape() {
+        try {
+            selGrape = selClone.clone();
+        } catch (CloneNotSupportedException e) {
+            Log.i(ARG_APPDATA, "----- CloneNotSupportedException");
+            e.printStackTrace();
         }
     }
 

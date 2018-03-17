@@ -9,17 +9,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-import com.example.dim.wineroom.entities.Cellar;
-import com.example.dim.wineroom.entities.Grape;
-import com.example.dim.wineroom.entities.Grower;
-import com.example.dim.wineroom.entities.User;
-import com.example.dim.wineroom.entities.Wine;
-import com.example.dim.wineroom.models.DbHelper;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WelcomeWine extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -45,9 +43,18 @@ public class WelcomeWine extends AppCompatActivity implements NavigationView.OnN
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        List<String> strList= new ArrayList<>();
+        strList.add("totoA");
+        strList.add("totoB");
+        strList.add("totoC");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                getApplicationContext(), android.R.layout.simple_list_item_1, strList);
+
+        ((ListView)findViewById(R.id.nav_right)).setAdapter(adapter);
     }
 
     @Override
@@ -75,7 +82,8 @@ public class WelcomeWine extends AppCompatActivity implements NavigationView.OnN
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_search) {
+            ((DrawerLayout)findViewById(R.id.drawer_layout)).openDrawer(Gravity.RIGHT);
             return true;
         }
 
@@ -87,17 +95,17 @@ public class WelcomeWine extends AppCompatActivity implements NavigationView.OnN
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+/*
         if (id == R.id.nav_maCave) {
             // Handle the camera action
         } else if (id == R.id.nav_mesVignerons) {
 
         } else if (id == R.id.nav_search_vin) {
-
+           // getLayoutInflater().inflate(R.layout.list_item_search, item.)
         } else if (id == R.id.nav_search_vigneron) {
 
         }
-
+*/
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

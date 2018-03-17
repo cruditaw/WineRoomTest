@@ -1,4 +1,4 @@
-package com.example.dim.wineroom;
+package com.example.dim.wineroom.models;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,7 +8,6 @@ import com.example.dim.wineroom.entities.Grape;
 import com.example.dim.wineroom.entities.Grower;
 import com.example.dim.wineroom.entities.User;
 import com.example.dim.wineroom.entities.Wine;
-import com.example.dim.wineroom.models.DbHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +15,15 @@ import java.util.List;
 
 public class ApplicationModel {
 
+    private static ApplicationModel model;
+
     private List<Grape> grapesModel;
     private List<User> usersModel;
     private List<Grower> growersModel;
     private List<Wine> winesModel;
     private List<Cellar> cellarModel;
 
-    public ApplicationModel(Context context) {
+    private ApplicationModel(Context context) {
         DbHelper database = DbHelper.getInstance(context);
         // load all lists as Model
         // make class model
@@ -36,6 +37,13 @@ public class ApplicationModel {
         //populateDb(database);
         printDatabaseContent(database);
         database.closeDB();
+    }
+
+    public ApplicationModel getInstance(Context context) {
+        if (model == null) {
+            model = new ApplicationModel(context);
+        }
+        return model;
     }
 
     private void printDatabaseContent(DbHelper database) {
