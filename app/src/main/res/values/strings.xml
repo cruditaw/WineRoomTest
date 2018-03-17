@@ -7,4 +7,22 @@
 
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
+    <string-array name="action_filter_array">
+        <item>aucun</item>
+        <item>vins</item>
+        <item>vignerons</item>
+        <item>vins de la cave</item>
+    </string-array>
+    <string-array name="action_sort_array_vignerons">
+        <item>aucun</item>
+        <item>label</item>
+        <item>lieu</item>
+        <item>vins</item>
+    </string-array>
+    <string-array name="action_sort_array_vins">
+        <item>label</item>
+        <item>annee</item>
+        <item>domaine</item>
+        <item>vignerons</item>
+    </string-array>
 </resources>

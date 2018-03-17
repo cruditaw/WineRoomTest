@@ -1,6 +1,8 @@
 package com.example.dim.wineroom;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -9,17 +11,34 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * todo clear code
+ * todo declare view bindings
+ * todo create data logic
+ * todo search spinners logic
+ * todo test data filter and dataSort
+ * todo color selected spinner for searchDrawer
+ *
+ */
 public class WelcomeWine extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+
+    private final String ARG_WELCOME="WelcomeWine";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +70,55 @@ public class WelcomeWine extends AppCompatActivity implements NavigationView.OnN
         strList.add("totoB");
         strList.add("totoC");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                getApplicationContext(), android.R.layout.simple_list_item_1, strList);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                getApplicationContext(), android.R.layout.simple_list_item_1, strList) {
 
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                ((TextView)view.findViewById(android.R.id.text1)).setTextColor(getResources().getColor(R.color.colorBlack));
+                return view;
+            }
+        };
         ((ListView)findViewById(R.id.nav_right)).setAdapter(adapter);
+
+        Spinner spinnerFilter = (Spinner) findViewById(R.id.spinnerFilter);
+// Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapterFilter = ArrayAdapter.createFromResource(this,
+                R.array.action_filter_array, android.R.layout.simple_spinner_item);
+// Specify the layout to use when the list of choices appears
+        adapterFilter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner
+        spinnerFilter.setAdapter(adapterFilter);
+
+        spinnerFilter.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (adapterView.getSelectedItem() != null) {
+                    Spinner spinnerSort = (Spinner) findViewById(R.id.spinnerSort);
+                    String s = adapterView.getSelectedItem().toString();
+                    Log.i(ARG_WELCOME, "spinnerFilter.OnItemSelectedListener.onItemSelected : "+s);
+                    if (s.equalsIgnoreCase("vins")) {
+                        ArrayAdapter<CharSequence> adapterSorter = ArrayAdapter.createFromResource(getApplicationContext(),
+                                R.array.action_sort_array_vins, android.R.layout.simple_spinner_item);
+                        adapterSorter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinnerSort.setAdapter(adapterSorter);
+                    } else {
+                        ArrayAdapter<CharSequence> adapterSorter = ArrayAdapter.createFromResource(getApplicationContext(),
+                                R.array.action_sort_array_vignerons, android.R.layout.simple_spinner_item);
+                        adapterSorter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinnerSort.setAdapter(adapterSorter);
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Log.i(ARG_WELCOME, "spinnerFilter.OnItemSelectedListener.onNothingSelected !");
+
+            }
+        });
     }
 
     @Override

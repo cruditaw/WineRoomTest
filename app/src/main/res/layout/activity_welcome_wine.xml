@@ -34,13 +34,48 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_right_header">
 
-        <ListView
-            android:id="@+id/nav_right"
-            android:layout_width="match_parent"
+        <LinearLayout
             android:paddingTop="@dimen/nav_header_height"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:fitsSystemWindows="true"/>
+            android:orientation="vertical"
+            android:weightSum="5">
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:weightSum="3"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.widget.Spinner
+                    android:id="@+id/spinnerFilter"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+                <Space
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+
+                <android.widget.Spinner
+                    android:id="@+id/spinnerSort"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/nav_right"
+                android:layout_weight="4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:fitsSystemWindows="true"/>
+
+        </LinearLayout>
+
+
 
     </android.support.design.widget.NavigationView>
 
